@@ -1,799 +1,158 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Fumigation Certificate</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --primary: #1A4314;
-  --primary-light: #285E20;
-  --primary-hover: #12320E;
-  --accent: #E8F0E8;
-  --bg-color: #F4F7F4;
-  --surface: #FFFFFF;
-  --surface-alt: #FAFCFA;
-  --text-main: #111812;
-  --text-muted: #5C6E5C;
-  --border-color: #DDE5DD;
-  --border-focus: #285E20;
-  --shadow-sm: 0 2px 8px rgba(26, 67, 20, 0.04);
-  --shadow-md: 0 8px 24px rgba(26, 67, 20, 0.06);
-  --shadow-lg: 0 16px 32px rgba(26, 67, 20, 0.08);
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-- { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-body {
-font-family: ‘Plus Jakarta Sans’, sans-serif;
-background: var(–bg-color);
-color: var(–text-main);
-min-height: 100vh;
-padding-bottom: 40px;
-}
-
-/* ── HEADER ── */
-.header {
-background: rgba(255, 255, 255, 0.85);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-padding: 16px 20px;
-display: flex;
-align-items: center;
-gap: 16px;
-position: sticky;
-top: 0;
-z-index: 100;
-box-shadow: 0 1px 0 rgba(0,0,0,0.05);
-}
-.header-logo { height: 44px; width: auto; border-radius: var(–radius-sm); }
-.header-text h1 { font-size: 18px; font-weight: 800; color: var(–primary); letter-spacing: -0.3px; line-height: 1.2; }
-.header-text p { font-size: 13px; font-weight: 500; color: var(–text-muted); }
-
-/* ── LAYOUT & CARDS ── */
-#app { padding: 20px 16px; max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
-
-.card {
-background: var(–surface);
-border-radius: var(–radius-xl);
-padding: 24px;
-box-shadow: var(–shadow-md);
-border: 1px solid rgba(255,255,255,0.8);
-}
-
-.card-title {
-font-size: 11px;
-font-weight: 700;
-text-transform: uppercase;
-letter-spacing: 1.5px;
-color: var(–primary-light);
-margin-bottom: 20px;
-display: flex;
-align-items: center;
-gap: 8px;
-}
-.card-title::after { content: ‘’; flex: 1; height: 1px; background: var(–border-color); }
-
-/* ── FORM FIELDS ── */
-.input-group { margin-bottom: 16px; }
-.input-group:last-child { margin-bottom: 0; }
-
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-label {
-display: flex;
-justify-content: space-between;
-align-items: center;
-font-size: 12px;
-font-weight: 600;
-color: var(–text-muted);
-margin-bottom: 8px;
-letter-spacing: 0.3px;
-}
-
-.badge {
-font-size: 10px;
-background: var(–accent);
-color: var(–primary-light);
-padding: 3px 8px;
-border-radius: 20px;
-font-weight: 700;
-letter-spacing: 0;
-}
-
-input, select {
-width: 100%;
-padding: 14px 16px;
-border: 1.5px solid var(–border-color);
-border-radius: var(–radius-md);
-font-family: ‘Plus Jakarta Sans’, sans-serif;
-font-size: 15px;
-font-weight: 500;
-color: var(–text-main);
-background: var(–surface-alt);
-transition: var(–transition);
--webkit-appearance: none;
-appearance: none;
-}
-
-input:focus, select:focus {
-outline: none;
-border-color: var(–border-focus);
-background: var(–surface);
-box-shadow: 0 0 0 4px rgba(40, 94, 32, 0.1);
-}
-
-/* ── STAT BLOCKS (For Readonly/Auto Fields) ── */
-.stats-container {
-display: flex;
-gap: 12px;
-background: var(–surface-alt);
-border: 1px solid var(–border-color);
-padding: 16px;
-border-radius: var(–radius-md);
-margin-top: 20px;
-}
-.stat-box { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-.stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(–text-muted); letter-spacing: 0.5px; }
-.stat-value {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 14px;
-font-weight: 700;
-color: var(–primary);
-border: none;
-background: transparent;
-padding: 0;
-pointer-events: none;
-}
-.stat-value::-webkit-calendar-picker-indicator { display: none; }
-
-/* ── LINE ITEMS ── */
-#linesContainer { display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px; }
-
-.line-item {
-background: var(–surface-alt);
-border: 1px solid var(–border-color);
-border-radius: var(–radius-lg);
-padding: 20px;
-position: relative;
-transition: var(–transition);
-}
-.line-item:hover { border-color: #c4d4c4; box-shadow: var(–shadow-sm); }
-
-.li-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 16px;
-}
-.li-title { font-size: 12px; font-weight: 700; color: var(–text-muted); text-transform: uppercase; letter-spacing: 1px; }
-
-.del-line {
-background: #FFEBEB;
-color: #D32F2F;
-border: none;
-width: 28px;
-height: 28px;
-border-radius: 50%;
-font-size: 14px;
-font-weight: bold;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: var(–transition);
-}
-.del-line:hover { background: #D32F2F; color: white; transform: scale(1.05); }
-
-.li-row { display: grid; grid-template-columns: 2fr 1.5fr 1fr; gap: 12px; margin-bottom: 12px; }
-
-.li-row .stat-box { padding-top: 6px; justify-content: flex-end; padding-bottom: 6px; }
-
-/* Check Pills for Types */
-.checks { display: flex; gap: 8px; margin-top: 8px; }
-.check-pill {
-flex: 1;
-text-align: center;
-padding: 12px 4px;
-border: 1.5px solid var(–border-color);
-border-radius: var(–radius-sm);
-background: var(–surface);
-font-size: 13px;
-font-weight: 600;
-color: var(–text-muted);
-cursor: pointer;
-user-select: none;
-transition: var(–transition);
-}
-.check-pill input[type=“checkbox”] { display: none; }
-.check-pill.on { background: var(–primary); border-color: var(–primary); color: white; box-shadow: 0 4px 10px rgba(26,67,20,0.2); }
-
-/* ── BUTTONS ── */
-.add-line-btn {
-width: 100%;
-padding: 16px;
-background: var(–accent);
-border: 1.5px dashed var(–primary-light);
-border-radius: var(–radius-md);
-color: var(–primary-light);
-font-family: ‘Plus Jakarta Sans’, sans-serif;
-font-size: 15px;
-font-weight: 700;
-cursor: pointer;
-transition: var(–transition);
-}
-.add-line-btn:hover { background: #DCE8DC; border-style: solid; }
-
-.generate-btn {
-width: 100%;
-background: var(–primary);
-color: white;
-border: none;
-border-radius: var(–radius-lg);
-padding: 18px;
-font-family: ‘Plus Jakarta Sans’, sans-serif;
-font-size: 16px;
-font-weight: 700;
-letter-spacing: 0.5px;
-cursor: pointer;
-box-shadow: var(–shadow-md);
-transition: var(–transition);
-margin-top: 10px;
-}
-.generate-btn:hover { background: var(–primary-hover); transform: translateY(-2px); box-shadow: var(–shadow-lg); }
-
-.reset-btn {
-width: 100%;
-padding: 16px;
-background: transparent;
-border: none;
-font-family: ‘Plus Jakarta Sans’, sans-serif;
-font-size: 14px;
-font-weight: 600;
-color: var(–text-muted);
-cursor: pointer;
-transition: var(–transition);
-}
-.reset-btn:hover { color: var(–text-main); }
-
-/* ── TOAST ── */
-.toast {
-position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
-background: #D32F2F; color: white; padding: 12px 24px; border-radius: 30px;
-font-size: 14px; font-weight: 600; box-shadow: var(–shadow-lg); z-index: 1000;
-transition: top 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-.toast.show { top: 20px; }
-
-/* ── PREVIEW & CERTIFICATE (Clean Print Styling) ── */
-#cert-preview { display: none; }
-
-.cert-actions {
-padding: 16px 20px;
-display: flex;
-gap: 12px;
-max-width: 700px;
-margin: 0 auto;
-position: sticky; top: 0; background: var(–bg-color); z-index: 10;
-}
-.cert-actions button {
-flex: 1; padding: 14px; border-radius: var(–radius-sm); font-family: ‘Plus Jakarta Sans’, sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: var(–transition);
-}
-.btn-back { background: white; border: 1.5px solid var(–border-color); color: var(–text-main); }
-.btn-back:hover { background: var(–surface-alt); }
-.btn-pdf { background: var(–primary-light); border: none; color: white; }
-.btn-print { background: var(–primary); border: none; color: white; flex: 1.5; box-shadow: var(–shadow-md); }
-
-.cert-wrap {
-background: white; margin: 0 auto 40px; border-radius: 0; padding: 40px;
-box-shadow: var(–shadow-lg); max-width: 800px; overflow-x: auto;
-}
-
-.cert-logo-area { text-align: center; margin-bottom: 20px; }
-.cert-logo-img { width: 90px; height: auto; display: block; margin: 0 auto 10px; }
-
-.cert-title {
-text-align: center; font-size: 16pt; font-weight: 800; letter-spacing: 1px;
-margin-bottom: 20px; font-family: Arial, sans-serif; color: var(–primary);
-}
-
-.ct { width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 8pt; font-family: ‘Helvetica Neue’, Arial, sans-serif; }
-.ct td, .ct th { border: 1px solid #ccc; padding: 6px 8px; }
-.ct th { background: var(–surface-alt); color: var(–primary); font-weight: bold; text-align: center; font-size: 7.5pt; text-transform: uppercase; }
-.ct .lbl { background: var(–surface-alt); color: var(–primary); font-weight: bold; font-size: 8pt; }
-.ct td.c { text-align: center; }
-
-.under-fum {
-text-align: center; font-size: 20pt; font-weight: 900; color: rgba(211, 47, 47, 0.15);
-letter-spacing: 4px; margin: 10px 0; font-family: ‘Arial Black’, sans-serif; text-transform: uppercase;
-}
-
-.cert-note {
-font-size: 7.5pt; text-align: center; margin: 16px 0; line-height: 1.6;
-font-family: Arial, sans-serif; color: #333;
-}
-
-.sig-t { width: 100%; border-collapse: collapse; font-size: 8pt; font-family: Arial, sans-serif; margin-top: 16px; }
-.sig-t th { background: var(–surface-alt); color: var(–primary); border: 1px solid #ccc; padding: 6px 8px; text-align: center; }
-.sig-t td { border: 1px solid #ccc; padding: 16px 8px; text-align: center; }
-
-.cert-footer { text-align: center; font-size: 7pt; margin-top: 24px; line-height: 1.6; font-family: Arial, sans-serif; color: #666; }
-
-@media print {
-body { background: white; padding: 0; }
-.header, #app, .cert-actions { display: none !important; }
-#cert-preview { display: block !important; }
-.cert-wrap { margin: 0; padding: 0; box-shadow: none; max-width: 100%; }
-}
-</style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Fumigation Certificate</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-<div class="header">
-  <img class="header-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAGSgAwAEAAAAAQAAAGQAAAAA3IGzQgAAAAlwSFlzAAALEwAACxMBAJqcGAAAABxpRE9UAAAAAgAAAAAAAAAyAAAAKAAAADIAAAAyAAAJcmIsJL4AAAk+SURBVHgB7JtNyBVVGMdvBu+qVWWBSEVkQR/gQqpFQVGYRrXIRYvctEgI+iIK2ikvVmqCfVgIGRlilEaFBaYZIfYBQWQYBUktKpQCN4pFIE3P72n+47lz79w5Z+7c+3p9FQ5z37lnzjnP83u+zplrpzPD/7Ism2NtKm9zwuVw79DR3+fv+vnr257/6p1HH9r90oZ7dqzcccObj+y/7NXlP13wwr1HptYt/evcdUtP0vjMPb6jD315hmcZ44c/f1vAmKU5KucP+53xn00xUkQBAWUdOHLomo3f7Fxx/4drXr9284pvUXLnmVuzzqqbTjX+pq25o3/T9+Fz9pmxGJOxgcRcIaB+a5o1ICQoCvn814OLsGSUhaUXyg+ULi/ges7aJf/SqoDo+/CZom8AaWrt4ow5mZs1CM6sAFMWklCElboXmGIcQg5Aihyk9ELBVV5ScZ8xu8YXIOvPWlgTa8NgymuWEU30NReqCEuECSzyvPV3Hy1DGAWAOnD94LA2whprlfLLcuj+RF1DIRAOIT0nWD4ILbVOaeP6vguOrZG1UhgITCjPxII4cvz4XDyiDGImvCEWrIzF15iDQYZSKCu8/rSGgxWxQK6vHdi1nDKU0NQlZEV8j1XYuPp1rdlkQBYqwFDGiYBBvX/LW09+rBxBKHBrmxAQZeACQ1WGTMiGjDK80w5KGFvxCiVsQJSFm+i/n1uSuUwGBRnxFkGR18w4HC3ErlPEWfcK84RJ9og6o0E2eQuFCrLnYLpOAcYORwsh2XFUAYxJD091MPS9whgyI3uQ8GcGimBQEnJ2JBha8Gy5egizzSU6YLc/I54iGCzAqyhb0BmXLxIKEA/PpgPyCoeYY4ViMLysZWJP3rMchiKBPIX9VgBltHsVwcAzzsLoPWkWlJKnjAaKYJAzzoapXhhlTwFKkFPahSIYVBKewM+Gqf7vYfK8I09BV0H11Q4UwbDrlO++z0AY7Cl8X5GQyOURVVdBoSRGd3miHx6KBtOmzydqceFVAo3tvu2+1227Orv+5Zuzjn1ua95wn8LmsZXKS97BcQj7DC/vxgRDVpt6TVUo4/+x52KH0ll9Z+ue4joz3bkOjYp0CqCkf3qQQzQl8VED8bBhSnlg86Lsl13zsoMfxTf637XpxgylRkMxj8Az/t4716Es2GDv6Vv0EtYhnZHkw/cqSTDoLCC8oBnrLtwUsvv9y7Pss/NdUSc/vTCrayiU/oCMtXLBByLP0lZtvS76+WjoBsXDvHmJ5+BAt9FQBMNPM22gceQNV1BgsSdMybHt+Cf/A3liy8JohQoIEASf0HXR+ttb9xLgCQrv7EODr4UiGLzpU4krt0uxikZ9DcgH717iCkLJqUBIzqkhS94oqKPyEumQ8J9UCgvIOKsqWSshB2tNgQE0KRPlRucAg0/OwCsIeYwxylwSeonrNiZ0CQbJx9+BB0mpkcXb83XPCQbJVUqJ9YywX4oyNSchLjQAgU32tAg5Qz2g26hdvIB43TyG3CHFYKlUSSRvlBIqOvazlFkXcnxO8w5yheYM50gBGyo59rNySbA36b9ZFIzCO2zRinuxkyX3sxIVz5BimsKQQqVM3+QF5S8QHASWzP0BuUpgt2y/Mi0fte0lAjLq3CEL5Yo1o0Q8Q0od9spY5AXykeZyCDkIvFGJfNBcrMvBGrxkQ6uBU+slgkH217F6294RKgdBv9x5qcdvFIjwg5ST+h1jkhvwPCz9xW1XeAMEY6nMrRpXXpJUJNRACKG6bvMXWn1/vSIgXiO3nDsA4TDMQonbKEdKGTZEVSlU9wUGAGqx8AUlZbMZKr3us7zk6X1vrOzalwgGV/+hQounuYVXmNsjGBaLYlDYqGEICvOo6V7MlWcAyvGNbxYTPKAOBt/LS/iBt+n+1GmwgHgZ1vKkxG7Ck2I2Ao4LRIzS6/qwVgxIZbAbWEs6ciDkJ3OArle+ouOu00K4kldwJWlLqBBE24m8TrGx32MwVSFNCb5NKApbPRvFVsOVeQWVjJI2yijDoAoiFFQJH6vANvuxFkKqdu4aWwaFPDK2mJAU06cUtk7tR8j0TmtYdzQY5AoJgVBlpRMCFJdRAN/Tv2kLFTfMGIAIS2LGCsdm3RQkSWdlNfp0INYH3Wvn7oeNOtVVhxi6XX2IhdYIUXVJm7AAiLA/93iuSQMorcmzPKO5fSNoMijfhUAAw9/0bbvqUtjS74QdSBtHJQiEgLKqqquAAJ/qZdkrVzVuGACWjbJIvMOMhXewpiogyCNvbjOfCIi/d8rr3ylKL7J9Iw8xq8KVgVG2qn5Q6EfImrfxvmz7j/uzx/a93agte2/awweGQHzvTC/OFm19qtFYrIG18Pyg43/k0/q9FCYy1ISluu9d56Z7XnV4xcvuvMnJric4yxkKUzEwACSBAHLsnxO2hiw7fOxwUtNz8zc96MaAEvnMfVrT8eqAsH5BYc7oo/4B0OQEMPBdu9fATbzDrIPXn4Sgfp5Qda8M5PvvVrtSHbBZOTEayFi8/190Wxuf8QQPFVaa4x38Q4F4p4Bw7+E9G/0/1WDBPOPjMkY+DuP7m0XGz717zxeP82ith0gmQfF1mlH6HAOUXuclClvOQgndb8YOaoIgMMkZILHegUAhEJSAAon9fm6UV2k9gtr9oYDYeuXRBZB8TOCEgAeFLAHRFdn9hxUaP1Z/pX4C4kdXjU53TRiSKMpNgSHLUg4REH5EgWKw9sJDbI7C8kYABOgOvuRxsUCQRQXKsPlEQJxF8q9KzBqoSMobKFlN3bXsIc/unc7mrV3oHgdkKhkPKSMCgkWzRjwOOZi7qYfIwIbdnwiIs0g5UJTbo7BU7xCoMhByCMrBMrlSMfHZ51IoGNZDFCJsPM3BVS01h0gWXQGjUrguX/T7XkCcRXLJa0INqtW1yKprGYiSsKoNdsIAL6CgzFyRjZO6Pa8xlJ9QjM/ZMGRJPnkJcJvu4lX6OoukXyWaYGEy16JSrlVAlC9CLyygDOsh+fOC0TXXkECQnTCro5cmpbCA+M+u/A2hrEWuXXU1IMRdrIJFpIBQ30FAUJSaPMWrryE9BOsNj9A1h4NpAYi8pCf3Vemx4r6z0KawX2zruZcDaQoDKFVA3N3NkstXqi6SJkptErJ4Vooqj+1/twhExtOjtwoA5X6w+A8AAP//HNeh8gAACMNJREFU7ZtLiBxFGMdHhTl5UqOyBBUxHnxADkE9KBgUTUQ96MGDuXgwIKiIKOSWsERNYiA+ggSMGAkrmIhKFGJiRDQ+QBAjEQVDPKgQFHJxiSIE2/p92/+2pre7p6q6J/uYDNT2dHd11ff9/9+rqmd7/S2r/+ptujMLas+typZtW5lNf7Qk+/vQkuxUQss+uSA7+sFENrH9gYzPwS+eyDbsvj7bMnVNZeMe/ZmLuXsbbs7uf2fSnl2x++nsxamrsvfevixbuuNhu/bowe3W5+Ktt2e/H7zE2rDxkYEP4zEWMqJjjH7gwXzM23M4BeFZwt24OH/rPSd5+JzNq/4dOoibiAl/3j+Rnf74oiiBpVyZkGcPTWY3vHxLdveOm2ob95/ctdzACiVk156rjeiQsZGhLSHoBybMl0qIcXHhC/ed6D2zMowQGHWkHHj3yiQrQugyIbLo3sa7st7kHY0NUvCIYR5CH7xi2Hh2v+RxqR4i3R7auSJDl/5mp0vJA+rOzRkcB1e8suan3nU7134bSohN4iZD2RS3ltCEIIWYdZ9NZedtWX2aEBbSIOX77zYWFl0OWdwj/IWMRR90wijaegghDkxSCEF/ODAubnzjscOc2MUQRp2H4JZd5JA//zllQHCMafaQ+1OVQ7gXM5Zk4Lk2OaQ1Ic5TjYt7967fS1wOJqRl2CLOkoOwTEIPHhLbsOg9Px6eRQjXuBc7Hv2RhXD85b7Lk70/NYcY9o4D4+KRAy9tiyFEYYskjIsShmIbgltY2bw8m0hseDWxmpBFTrMc5K6ljsdzhMNUz0en1CpLhBgX27/ZtzaGkCIxtUzuKDB96NKk5sdqqikRgpG0GZdnUwhRuKIgSKmwRMjzX731eG//8a9vC03qBRl52CKXxHqH+qvOB4CmRn/6+g1CIKLsIXgd9+jbNGbdPckWe2Q+30gsioTk47yPCDEujp38bakWh0FrkXwQhS4fhFhF6vr74GO1KFtuhAessfCQPP6bhziA6sbu+jqyMieVo2Hi5Bgw3CHECHM4+OGPX5f1XHHRjyl9ByZzk7NQRJgugBARIoEjwJNoyRXEeMpKLSKRhe9cQw5ZqmThvGsCyuNpTmSLXX8gv78GgYsenwff3/RaSh6RlwAKYaAsbMy5FANMCMbzGLfYisDyWDz6jWt5QxZCqLZa8CgREyNHbF/JW8g5xCMGDNr1VbiyCsvYcH+U2OU+5YeazkVKauiCCJSikRQhQWMa+ACeK8l1v+l6ccxJow9eA7EQg7GMwltkRKnegdwixBK6CDly4ti1diOS3QII9xwWklLDAxjAQYSsnXEFvD/HsO8DzzhyOAcswh7zdEmKyEBn5hkmW9V9OQDYf/7L0RXigzxybvSKvUyeA4CQgaAh4UtegWeZQoSinIgq4WOv2Zi5x7BLrP232JBU1186onNKqYs+yh/kcDgwQpRI1n36+vqUPCKgBCqhAmusUwTCIAOrNa+AiNyaNVaXx4IYNwf5RYbQxlvkHW1CFToqXNmC0LFhpIgZcxlWv2XLjziX8lREVSFCihCi7N3GCInw9UAuGQxG0CaESQd0TPUMZFO4Yg1o648yIbiLwlbROYKMAgDChGsKESigpApJXLeKxHmGgZQyR+IzIgVjSMl3IsMWpbmehd6RMlWFKznHjKs4QizTx240VgnihPWTvCySKspAQZmq587UNTc/csiTCa+AXRdmdR+D6koHhStVVwUZeIZOTkxPL4l+YVUHovMALFGlZ1eKdEWkvIWcB+DkljpS5Bld6aAIxBtCdkp8DvhuH5ESu/vbCFBOCi6eunBqHL/OGAKvixTllSpSRAY6dOXd8g5bkDv0hX1OxSAhrElS9raqgDMFACevpKr6zPU1keJ7MyTIWwhTRQLvINTKO8BYa49KQqBFN1K3UurALYgJtNy6cUZ1XZaPF6sYoRDBY6y07YAIyR7kHXIVEYKXRP0aZZ4CLRBCjiKFI7nCXyd1ZVC+d4Cx7wTiYNZRpHSaSxYIYSIFT7F1UselubxjYCE4i4HSBRFCxWU/S3ELFzEbYmmLog8hKi+Nu9LHMHRYUsXWVlYlLopTkdJmF7grReZqnK7ClOSXd1SuOwrkG76IlKRfpSyQECWwRn0UGbe++dSHDZA33xIhvFbsbLE4hkQp3FMk2StaB7uwbWag4q4efPXI/jVRP6YbQ+DrvEzeYRi2IUP8iJRxrLrqQA69LjIaV+QCOvQoQtyxbzGwi83HMfAgkcEOOtiBt7AMxb62nwaiXFMpbBOOAbCh3uD3M2xciQtW0SVuLQulGyKFFebZJF//D07+emPoXlUJ4+hTkcJEtrUyjovGhqggMsDGews481uraLQDH3Ck2ARMeJaU/z1FZLCLe8bIEGe+pyh8acvej6Xj8t10z7dFRh6mREL5KFLIKZbo8+pLC6FxIANdVU2BwZyRIXJEChuRfkk8DqT4ZFDajqyaEtihR5Hijn0tHtmYW8xlMbrZ5qOLCiz60B28hEUodiPrhyAShi0CyyuLMIT5XkFB42+HSP+RgZwysBPKLIVNNIWwxbIHpsUev+5EN2+jsD8vyRCBCCcBfW8prKuhjp+PhQBEWE50ROD56CQd3XG0awyB2vYogRmHhE9usdLQKQXoCyG/FDI6mZEdHdAFnXz9OF8Qn1zowp1xcRJgmRizvnniNQNenBOBzF54wvsLnRYEEWUhy8SwbkFJW+XjMTT3/rqwyDkgx+bmPbpb3CEPsiGj/8uQBU9EDTEz/wPhbuL+vF+mhjdAIMYBwne8iMb3Lj1IHuCPLxKYC1mQqRyaMKqyPov6HEvk/1P4x5UipOUEAZiABLSqxv2QPlY05F6AJzAXczI3q+yxA963qjyUDVge1yCHX7sQMgBLG5gW2iBJDWDVFOZ07oHu92cstjgYmzmYq0xClVy+3GPxXSBUgNMnobJ7CoBUOvwKhtACWTQABmiBrev0oS/P8CxjMJabY1apqvnnA9j/AZbn6MowNtIZAAAAAElFTkSuQmCC" alt="Logo">
-  <div class="header-text">
-    <h1>Fumigation Certificate</h1>
-    <p>Bean Growers Australia</p>
-  </div>
-</div>
-
-<div id="app">
-
-  <!-- Container Details -->
-
-  <div class="card">
-    <div class="card-title">Container Details</div>
-
-```
-<div class="row2">
-  <div class="input-group">
-    <label>Container No.</label>
-    <input type="text" id="containerNo" placeholder="e.g. 13 20FT">
-  </div>
-  <div class="input-group">
-    <label>Size</label>
-    <select id="volume">
-      <option value="33.2">33.2 m³</option>
-      <option value="76.3">76.3 m³</option>
-    </select>
-  </div>
-</div>
-
-<div class="input-group" style="margin-top: 16px;">
-  <label>Fumigation Date <span class="badge">Sets all dates</span></label>
-  <input type="date" id="fumDate">
-</div>
-
-<!-- Grouped Auto Fields -->
-<div class="stats-container">
-  <div class="stat-box">
-    <span class="stat-label">Cert Date</span>
-    <input type="date" id="certDate" class="stat-value" readonly>
-  </div>
-  <div class="stat-box">
-    <span class="stat-label">Release <span class="badge" style="background:transparent;padding:0;color:var(--text-muted)">+10d</span></span>
-    <input type="date" id="releaseDate" class="stat-value" readonly>
-  </div>
-  <div class="stat-box">
-    <span class="stat-label">Available <span class="badge" style="background:transparent;padding:0;color:var(--text-muted)">+11d</span></span>
-    <input type="date" id="availDate" class="stat-value" readonly>
-  </div>
-</div>
-```
-
+  <!-- ── AUTH SCREEN ── -->
+  <div id="auth-screen">
+    <form class="auth-card card" id="login-form">
+      <img src="/logo.png" alt="Bean Growers Australia" />
+      <h2>Fumigation Certificates</h2>
+      <p>Bean Growers Australia — sign in to continue</p>
+      <div class="input-group">
+        <input type="email" id="login-email" placeholder="Email" autocomplete="username" required />
+      </div>
+      <div class="input-group">
+        <input type="password" id="login-password" placeholder="Password" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="generate-btn" id="login-btn">Sign In</button>
+      <div class="auth-error" id="login-error"></div>
+    </form>
   </div>
 
-  <!-- Loading Details -->
-
-  <div class="card">
-    <div class="card-title">Loading Details</div>
-
-```
-<div class="input-group">
-  <label>Loaded From</label>
-  <input type="text" id="loadedFrom" value="SHED">
-</div>
-
-<div class="input-group">
-  <label>Loaded By</label>
-  <input type="text" id="loadedBy" list="loaders-list" placeholder="Select or type...">
-  <datalist id="loaders-list">
-    <option value="JW">
-    <option value="CM">
-    <option value="CMc">
-    <option value="PC">
-    <option value="NS">
-    <option value="LW">
-  </datalist>
-</div>
-
-<div class="stats-container">
-  <div class="stat-box">
-    <span class="stat-label">Load Date</span>
-    <input type="date" id="loadDate" class="stat-value" readonly>
-  </div>
-  <div class="stat-box">
-    <span class="stat-label">CHEP Count</span>
-    <input type="number" id="chepCount" class="stat-value" readonly placeholder="Auto" style="font-size: 16px;">
-  </div>
-</div>
-```
-
-  </div>
-
-  <!-- Lines -->
-
-  <div class="card">
-    <div class="card-title">Line Items</div>
-    <div id="linesContainer"></div>
-    <button class="add-line-btn" onclick="addLine()">+ Add Another Line</button>
-  </div>
-
-  <!-- Fum Details -->
-
-  <div class="card">
-    <div class="card-title">Extra Details</div>
-    <div class="input-group">
-      <label>Ventilation Period</label>
-      <input type="text" id="ventPeriod" value="24 HOURS">
+  <!-- ── HEADER ── -->
+  <div class="header" id="header" style="display:none">
+    <img class="header-logo" src="/logo.png" alt="Logo" />
+    <div class="header-text">
+      <h1>Fumigation Certificate</h1>
+      <p>Bean Growers Australia</p>
+    </div>
+    <div class="header-actions">
+      <button class="ghost-btn" id="nav-history">History</button>
+      <button class="ghost-btn" id="logout-btn">Sign out</button>
     </div>
   </div>
 
-<button class="generate-btn" onclick="generateCert()">Generate Certificate</button>
-<button class="reset-btn" onclick="resetForm()">Start New Certificate</button>
+  <!-- ── FORM ── -->
+  <div id="app" style="display:none">
 
-</div>
-
-<!-- Preview -->
-
-<div id="cert-preview">
-  <div class="cert-actions">
-    <button class="btn-back" onclick="goBack()">← Back to Edit</button>
-    <button class="btn-pdf" onclick="savePDF()">Download PDF</button>
-    <button class="btn-print" onclick="window.print()">Print</button>
-  </div>
-  <div class="cert-wrap">
-    <div id="certificate"></div>
-  </div>
-</div>
-
-<!-- Toast -->
-
-<div id="toast" class="toast"></div>
-
-<script>
-// ── DATES ──
-function isoToday() {
-  const d = new Date();
-  return d.toISOString().split('T')[0];
-}
-
-function addDays(iso, n) {
-  const [y, m, d] = iso.split('-').map(Number);
-  const date = new Date(y, m - 1, d + n);
-  const yy = date.getFullYear();
-  const mm = String(date.getMonth() + 1).padStart(2, '0');
-  const dd = String(date.getDate()).padStart(2, '0');
-  return `${yy}-${mm}-${dd}`;
-}
-
-function fmt(iso) {
-  if (!iso) return '';
-  const [y, m, d] = iso.split('-');
-  return `${d}.${m}.${y}`;
-}
-
-function syncDates(iso) {
-  document.getElementById('certDate').value    = iso;
-  document.getElementById('loadDate').value    = iso;
-  document.getElementById('releaseDate').value = addDays(iso, 10);
-  document.getElementById('availDate').value   = addDays(iso, 11);
-}
-
-document.getElementById('fumDate').addEventListener('change', function() {
-  syncDates(this.value);
-});
-
-const today = isoToday();
-document.getElementById('fumDate').value = today;
-syncDates(today);
-
-// ── PARSING ──
-function parseCount(val) {
-  const m = val.trim().match(/^(\d+)\s*[xX×]\s*(\d+)$/);
-  if (m) return { units: parseInt(m[1]), each: parseInt(m[2]) };
-  const s = val.trim().match(/^(\d+)$/);
-  if (s) return { units: parseInt(s[1]), each: 1 };
-  return null;
-}
-
-function recalcChep() {
-  let total = 0;
-  document.querySelectorAll('.count-input').forEach(inp => {
-    const p = parseCount(inp.value);
-    if (p) total += p.units;
-  });
-  document.getElementById('chepCount').value = total > 0 ? total : '';
-}
-
-// ── LINE ITEMS ──
-let lineIdx = 0;
-
-function addLine() {
-  lineIdx++;
-  const n = lineIdx;
-  const div = document.createElement('div');
-  div.className = 'line-item';
-  div.id = 'li-' + n;
-  div.innerHTML = `
-    <div class="li-header">
-      <span class="li-title">Item ${n}</span>
-      <button class="del-line" onclick="removeLine(${n})">✕</button>
-    </div>
-
-    <div class="li-row">
-      <div class="input-group" style="margin:0">
-        <label>Line No.</label>
-        <input type="text" class="line-no" placeholder="e.g. I1182">
+    <!-- Container Details -->
+    <div class="card">
+      <div class="card-title">Container Details</div>
+      <div class="row2">
+        <div class="input-group">
+          <label>Container No.</label>
+          <input type="text" id="containerNo" placeholder="e.g. 13 20FT" />
+        </div>
+        <div class="input-group">
+          <label>Size</label>
+          <select id="volume">
+            <option value="33.2">33.2 m³</option>
+            <option value="76.3">76.3 m³</option>
+          </select>
+        </div>
       </div>
-      <div class="input-group" style="margin:0">
-        <label>Count</label>
-        <input type="text" class="count-input" placeholder="10 x 42">
+
+      <div class="input-group" style="margin-top: 16px;">
+        <label>Fumigation Date <span class="badge">Sets all dates</span></label>
+        <input type="date" id="fumDate" />
       </div>
-      <div class="stat-box" style="margin:0">
-        <span class="stat-label">Bags</span>
-        <input type="number" class="bags-input stat-value" readonly placeholder="—">
+
+      <div class="stats-container">
+        <div class="stat-box">
+          <span class="stat-label">Cert Date</span>
+          <input type="date" id="certDate" class="stat-value" readonly />
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Release <span class="badge" style="background:transparent;padding:0;color:var(--text-muted)">+10d</span></span>
+          <input type="date" id="releaseDate" class="stat-value" readonly />
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Available <span class="badge" style="background:transparent;padding:0;color:var(--text-muted)">+11d</span></span>
+          <input type="date" id="availDate" class="stat-value" readonly />
+        </div>
       </div>
     </div>
 
-    <div class="input-group">
-      <label>Comments</label>
-      <input type="text" class="comments-input" placeholder="Optional comments...">
-    </div>
-
-    <div class="input-group" style="margin-top: 16px;">
-      <label>Type</label>
-      <div class="checks">
-        <label class="check-pill on" id="dom-${n}">
-          <input type="checkbox" class="cb-dom" checked> Domestic
-        </label>
-        <label class="check-pill" id="exp-${n}">
-          <input type="checkbox" class="cb-exp"> Export
-        </label>
-        <label class="check-pill" id="seed-${n}">
-          <input type="checkbox" class="cb-seed"> Seed
-        </label>
+    <!-- Loading Details -->
+    <div class="card">
+      <div class="card-title">Loading Details</div>
+      <div class="input-group">
+        <label>Loaded From</label>
+        <input type="text" id="loadedFrom" value="SHED" />
+      </div>
+      <div class="input-group">
+        <label>Loaded By</label>
+        <input type="text" id="loadedBy" list="loaders-list" placeholder="Select or type..." />
+        <datalist id="loaders-list"></datalist>
+      </div>
+      <div class="stats-container">
+        <div class="stat-box">
+          <span class="stat-label">Load Date</span>
+          <input type="date" id="loadDate" class="stat-value" readonly />
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">CHEP Count</span>
+          <input type="number" id="chepCount" class="stat-value" readonly placeholder="Auto" style="font-size: 16px;" />
+        </div>
       </div>
     </div>
-  `;
-  document.getElementById('linesContainer').appendChild(div);
 
-  // Wire checkboxes
-  div.querySelectorAll('.check-pill').forEach(pill => {
-    pill.addEventListener('click', function() {
-      const cb = this.querySelector('input[type="checkbox"]');
-      setTimeout(() => this.classList.toggle('on', cb.checked), 0);
-    });
-  });
-
-  // Wire count calc
-  const countInp = div.querySelector('.count-input');
-  const bagsInp  = div.querySelector('.bags-input');
-  countInp.addEventListener('input', () => {
-    const p = parseCount(countInp.value);
-    bagsInp.value = p ? p.units * p.each : '';
-    recalcChep();
-  });
-}
-
-function removeLine(n) {
-  const el = document.getElementById('li-' + n);
-  if (el) { el.remove(); recalcChep(); }
-}
-
-addLine();
-addLine();
-
-// ── GENERATE ──
-function generateCert() {
-  const containerNo = document.getElementById('containerNo').value.trim() || '—';
-  const certDate    = fmt(document.getElementById('certDate').value);
-  const loadedFrom  = document.getElementById('loadedFrom').value.trim() || 'SHED';
-  const loadedTo    = containerNo;
-  const chepCount   = document.getElementById('chepCount').value;
-  const loadedBy    = document.getElementById('loadedBy').value.trim();
-  const loadDate    = fmt(document.getElementById('loadDate').value);
-  const volume      = document.getElementById('volume').value;
-  const fumDate     = fmt(document.getElementById('fumDate').value);
-  const releaseDate = fmt(document.getElementById('releaseDate').value);
-  const availDate   = fmt(document.getElementById('availDate').value);
-  const ventPeriod  = document.getElementById('ventPeriod').value || '24 HOURS';
-
-  const lineEls = document.querySelectorAll('.line-item');
-  const lines =[];
-  lineEls.forEach(el => {
-    const lineNo = el.querySelector('.line-no').value.trim();
-    if (!lineNo) return;
-    lines.push({
-      lineNo,
-      count:    el.querySelector('.count-input').value.trim(),
-      bags:     el.querySelector('.bags-input').value.trim(),
-      domestic: el.querySelector('.cb-dom').checked ? 'YES' : '',
-      exp:      el.querySelector('.cb-exp').checked ? 'YES' : '',
-      seed:     el.querySelector('.cb-seed').checked ? 'YES' : '',
-      comments: el.querySelector('.comments-input').value.trim()
-    });
-  });
-
-  // Validation
-  const errors =[];
-  const containerEl = document.getElementById('containerNo');
-  const fumEl = document.getElementById('fumDate');
-  const loadedByEl = document.getElementById('loadedBy');
-
-  if (!containerEl.value.trim()) errors.push('Container number is required');
-  if (!fumEl.value) errors.push('Fumigation date is required');
-  if (!loadedByEl.value.trim()) errors.push('Loaded By is required');
-  if (lines.length === 0) errors.push('At least one line item is required');
-
-  if (errors.length > 0) {
-    showToast(errors[0]);
-    return;
-  }
-
-  const dataRows = lines.map(l => `
-    <tr>
-      <td>${l.lineNo}</td><td class="c">${l.count}</td><td class="c">${l.bags}</td>
-      <td class="c">${l.domestic}</td><td class="c">${l.exp}</td><td class="c">${l.seed}</td>
-      <td>${l.comments}</td>
-    </tr>`).join('');
-
-  const filler = Math.max(0, 6 - lines.length);
-  const fillerRows = Array(filler).fill(`<tr><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`).join('');
-
-  document.getElementById('certificate').innerHTML = `
-    <div class="cert-logo-area">
-      <img class="cert-logo-img" src="data:image/png;base64,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" alt="Bean Growers Australia">
+    <!-- Lines -->
+    <div class="card">
+      <div class="card-title">Line Items</div>
+      <div id="linesContainer"></div>
+      <button class="add-line-btn" id="add-line-btn">+ Add Another Line</button>
     </div>
 
-    <div class="cert-title">CONTAINER FUMIGATION CERTIFICATE</div>
-
-    <table class="ct">
-      <tr>
-        <td class="lbl" style="width:38%">CONTAINER NO:</td>
-        <td><strong>${containerNo}</strong></td>
-        <td class="lbl" style="width:20%">DATE:</td>
-        <td><strong>${certDate}</strong></td>
-      </tr>
-    </table>
-
-    <table class="ct">
-      <thead><tr><th>LINE NO</th><th>COUNT</th><th>NO OF BAGS</th><th>DOMESTIC</th><th>EXPORT</th><th>SEED</th><th>COMMENTS</th></tr></thead>
-      <tbody>${dataRows}${fillerRows}</tbody>
-    </table>
-
-    <div class="under-fum">UNDER FUMIGATION</div>
-
-    <table class="ct">
-      <thead><tr><th>LOADED FROM</th><th>TO</th><th>CHEP COUNT</th><th>LOADED BY</th><th>DATE</th></tr></thead>
-      <tbody>
-        <tr>
-          <td class="c">${loadedFrom}</td><td class="c">${loadedTo}</td>
-          <td class="c">${chepCount}</td><td class="c">${loadedBy}</td><td class="c">${loadDate}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <table class="ct">
-      <thead><tr><th>UNLOADED FROM</th><th>TO</th><th colspan="2">UNLOADED BY</th><th>DATE</th></tr></thead>
-      <tbody><tr><td class="c">CONT</td><td class="c">SHED</td><td colspan="2"></td><td></td></tr></tbody>
-    </table>
-
-    <table class="ct">
-      <thead><tr><th>FUMIGATION DATE</th><th>RELEASE DATE</th><th>AVAILABLE DATE</th><th>VENTILATION PERIOD</th><th>VOLUME m³</th></tr></thead>
-      <tbody>
-        <tr>
-          <td class="c">${fumDate}</td><td class="c">${releaseDate}</td><td class="c">${availDate}</td>
-          <td class="c">${ventPeriod}</td><td class="c">${volume}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p class="cert-note">
-      I, Jake Wilson, licence No. PMT012008923, certify that the above goods were fumigated with Phosphine at; 1.5g/m³ at 21°C for a period of 10 days.<br>
-      Active Constituent: PHOSPHINE present as ALUMINIUM PHOSPHIDE<br>
-      After ventilation, this product was checked for gas levels with a Drager X-AM7000 gas detection instrument.<br>
-      The highest level was 0.00ppm for PH³, therefore it is safe for persons to be in close proximity to the product.<br>
-      An organoleptic examination of the product revealed no notable negative attributes.
-    </p>
-
-    <table class="sig-t">
-      <thead><tr><th>FULL NAME</th><th>SIGNATURE</th><th>DATE</th></tr></thead>
-      <tbody><tr><td>Jake Wilson</td><td></td><td class="c">${availDate}</td></tr></tbody>
-    </table>
-
-    <div class="cert-footer">
-      BEAN GROWERS AUSTRALIA LIMITED &nbsp;·&nbsp; ABN: 52 092 429 984<br>
-      82–86 River Road, KINGAROY Q AUSTRALIA 4610 &nbsp;·&nbsp; PO Box 328, KINGAROY Q AUSTRALIA 4610<br>
-      +61 (7) 4162 1100 &nbsp;·&nbsp; www.beangrowers.com.au
+    <!-- Extra Details -->
+    <div class="card">
+      <div class="card-title">Extra Details</div>
+      <div class="input-group">
+        <label>Ventilation Period</label>
+        <input type="text" id="ventPeriod" value="24 HOURS" />
+      </div>
     </div>
-  `;
 
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('cert-preview').style.display = 'block';
-  window.scrollTo(0, 0);
-}
+    <button class="generate-btn" id="generate-btn">Generate &amp; Save Certificate</button>
+    <button class="reset-btn" id="reset-btn">Start New Certificate</button>
+  </div>
 
-function goBack() {
-  document.getElementById('app').style.display = 'flex';
-  document.getElementById('cert-preview').style.display = 'none';
-  window.scrollTo(0, 0);
-}
+  <!-- ── HISTORY ── -->
+  <div id="history-view" style="display:none">
+    <div id="history-app" style="padding: 20px 16px; max-width: 640px; margin: 0 auto;">
+      <div class="card">
+        <div class="card-title">Saved Certificates</div>
+        <div class="input-group">
+          <input type="search" id="history-search" placeholder="Search by container no..." />
+        </div>
+        <div id="history-list"></div>
+      </div>
+      <button class="reset-btn" id="history-back">← Back to New Certificate</button>
+    </div>
+  </div>
 
-function resetForm() {
-  if (!confirm('Start a new certificate? This will clear all fields.')) return;
+  <!-- ── PREVIEW ── -->
+  <div id="cert-preview">
+    <div class="cert-actions">
+      <button class="btn-back" id="cert-back">← Back to Edit</button>
+      <button class="btn-pdf" id="cert-pdf">Download PDF</button>
+      <button class="btn-print" id="cert-print">Print</button>
+    </div>
+    <div class="cert-wrap">
+      <div id="certificate"></div>
+    </div>
+  </div>
 
-  document.getElementById('containerNo').value = '';
-  document.getElementById('loadedBy').value = '';
-  document.getElementById('loadedFrom').value = 'SHED';
-  document.getElementById('ventPeriod').value = '24 HOURS';
-  document.getElementById('volume').value = '33.2';
-  document.getElementById('chepCount').value = '';
+  <!-- ── TOAST ── -->
+  <div id="toast" class="toast"></div>
 
-  const t = isoToday();
-  document.getElementById('fumDate').value = t;
-  syncDates(t);
-
-  document.getElementById('linesContainer').innerHTML = '';
-  lineIdx = 0;
-  addLine();
-  addLine();
-
-  window.scrollTo(0, 0);
-}
-
-// ── TOAST ──
-let toastTimer;
-function showToast(msg) {
-  let t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
-}
-
-// ── SAVE PDF ──
-function savePDF() {
-  const certEl = document.getElementById('certificate');
-  const containerNo = document.getElementById('containerNo').value.trim() || 'certificate';
-  const fumDate = document.getElementById('fumDate').value || 'date';
-  const filename = `fumigation-${containerNo}-${fumDate}.pdf`;
-
-  if (window.html2pdf) {
-    const opt = {
-      margin: 8,
-      filename: filename,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-    html2pdf().set(opt).from(certEl).save();
-  } else {
-    showToast('Tip: In the print dialog, choose "Save as PDF"');
-    setTimeout(() => window.print(), 800);
-  }
-}
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
