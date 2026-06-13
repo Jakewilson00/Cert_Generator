@@ -256,6 +256,23 @@ input:focus, select:focus {
 .generate-btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
 .generate-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
+.save-btn {
+  width: 100%;
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 8px;
+}
+.save-btn:hover { background: var(--primary); color: white; transform: translateY(-1px); }
+.save-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
 .reset-btn {
   width: 100%;
   padding: 16px;

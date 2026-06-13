@@ -26,6 +26,31 @@ function showView(name) {
   window.scrollTo(0, 0);
 }
 
+// ── Save only (no preview) ──
+async function save() {
+  let data;
+  try {
+    data = collectFormData();
+  } catch (e) {
+    if (e.validation) { showToast(e.message); return; }
+    throw e;
+  }
+
+  const btn = el('save-btn');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  try {
+    const saved = await saveCertificate(data);
+    showToast(`Saved as certificate #${saved.cert_number}`, 'success');
+  } catch (e) {
+    console.error(e);
+    showToast('Could not save: ' + (e.message || 'unknown error'));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Save';
+  }
+}
+
 // ── Generate (and save, when possible) ──
 async function generate() {
   let data;
@@ -141,6 +166,7 @@ async function enterApp() {
 // ── Boot ──
 function wireEvents() {
   el('generate-btn').addEventListener('click', generate);
+  el('save-btn').addEventListener('click', save);
   el('reset-btn').addEventListener('click', () => {
     if (confirm('Start a new certificate? This will clear all fields.')) resetForm();
   });
@@ -173,6 +199,8 @@ async function boot() {
     showToast('Running offline — set up Supabase to save certificates', 'success');
     return;
   }
+
+  el('save-btn').style.display = '';
 
   onAuthChange((session) => {
     if (session) enterApp();
